@@ -1,0 +1,6 @@
+Models/Inventory.java
+ Models.Inventory
+Main.java
+ Main
+Models/Product.java
+ Models.Product
