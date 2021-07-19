@@ -5,13 +5,13 @@ import java.util.List;
 public class Product {
     private String id;
     private String description;
-    private List<Warehouse> warehouse;
+    private List<Warehouse> availability;
     private String unit;
 
-    public Product(String id, String description, List<Warehouse> warehouse) {
+    public Product(String id, String description, List<Warehouse> availability) {
         this.id = id;
         this.description = description;
-        this.warehouse = warehouse;
+        this.availability = availability;
         this.unit = "single";
     }
 
@@ -34,12 +34,12 @@ public class Product {
         this.description = description;
     }
 
-    public List<Warehouse> getWarehouse() {
-        return warehouse;
+    public List<Warehouse> getAvailability() {
+        return availability;
     }
 
-    public void setWarehouse(List<Warehouse> warehouse) {
-        this.warehouse = warehouse;
+    public void setAvailability(List<Warehouse> availability) {
+        this.availability = availability;
     }
 
     public String getUnit() {

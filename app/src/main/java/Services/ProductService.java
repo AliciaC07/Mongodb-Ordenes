@@ -19,24 +19,35 @@ public class ProductService {
     MongoDatabase database = mongoClient.getDatabase("order");
     MongoCollection<Document> productsCollection = database.getCollection("product");
 
+    private static ProductService productService;
+
+    public static ProductService getInstance(){
+        if(productService == null)
+            productService = new ProductService();
+        return productService;
+    }
+
     public Product getProductById(String id){
         Product product = null;
         Bson filter = Filters.eq("id",id);
         Document show = new Document();
         List<Document> params = new ArrayList<>();
         show.append("id",id);
-        params.add(show);
+        params.add(new Document("$match",show));
         AggregateIterable<Document> productString = productsCollection.aggregate(params);
 
         for (Document myProduct: productString) {
             try{
-                List<Warehouse> warehouse = new ArrayList<>();
+                /*List<Warehouse> warehouse = new ArrayList<>();
                 product = new Product();
                 product.setId(myProduct.getString("id"));
                 product.setDescription(myProduct.getString("description"));
                 product.setUnit(myProduct.getString("unit"));
-                warehouse = myProduct.getList("availability",Warehouse.class);
-                product.setWarehouse(warehouse);
+                warehouse = myProduct.getList("availability", warehouse.getClass());
+                product.setWarehouse(warehouse);*/
+                product = new Product();
+                //System.out.println(myProduct.toJson());
+                product = new Gson().fromJson(myProduct.toJson(), Product.class);
             }catch (NullPointerException e){
                 e.printStackTrace();
             }

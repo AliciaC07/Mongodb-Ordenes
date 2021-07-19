@@ -1,20 +1,20 @@
 package Models;
 
 public class Warehouse {
-    private String id;
+    private int idWarehouse;
     private int quantity;
 
-    public Warehouse(String id, int quantity) {
-        this.id = id;
+    public Warehouse(int idWarehouse, int quantity) {
+        this.idWarehouse = idWarehouse;
         this.quantity = quantity;
     }
 
-    public String getId() {
-        return id;
+    public int getIdWarehouse() {
+        return idWarehouse;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdWarehouse(int idWarehouse) {
+        this.idWarehouse = idWarehouse;
     }
 
     public int getQuantity() {

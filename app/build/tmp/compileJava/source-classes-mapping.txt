@@ -1,6 +1,22 @@
-Models/Inventory.java
- Models.Inventory
+Services/InventoryMovementService.java
+ Services.InventoryMovementService
+Models/Supplier.java
+ Models.Supplier
+Models/InventoryMovement.java
+ Models.InventoryMovement
 Main.java
  Main
+Models/SellOrder.java
+ Models.SellOrder
+Services/SupplierService.java
+ Services.SupplierService
+Services/SellOrderService.java
+ Services.SellOrderService
+Services/ProductService.java
+ Services.ProductService
 Models/Product.java
  Models.Product
+Models/Warehouse.java
+ Models.Warehouse
+Models/SoldProduct.java
+ Models.SoldProduct
