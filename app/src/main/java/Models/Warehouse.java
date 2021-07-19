@@ -1,5 +1,10 @@
 package Models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Warehouse {
     private String id;
     private int quantity;
@@ -9,19 +14,6 @@ public class Warehouse {
         this.quantity = quantity;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Warehouse() {
     }
 }
