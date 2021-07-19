@@ -1,8 +1,13 @@
 package Models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-
+@Getter
+@Setter
 public class SellOrder {
     private int id;
     private int supplierId;
@@ -16,35 +21,8 @@ public class SellOrder {
         this.soldProducts = soldProducts;
     }
 
-    public int getId() {
-        return id;
+    public SellOrder() {
+
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(int supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public List<SoldProduct> getSoldProducts() {
-        return soldProducts;
-    }
-
-    public void setSoldProducts(List<SoldProduct> soldProducts) {
-        this.soldProducts = soldProducts;
-    }
 }

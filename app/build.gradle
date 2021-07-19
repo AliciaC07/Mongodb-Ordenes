@@ -19,6 +19,11 @@ dependencies {
     compile "org.apache.velocity:velocity-engine-core:2.2"
     implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.8'
     implementation 'com.google.code.gson:gson:2.8.7'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 test {

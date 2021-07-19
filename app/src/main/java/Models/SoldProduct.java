@@ -1,5 +1,10 @@
 package Models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SoldProduct {
     private Product product;
     private int quantity;
@@ -11,27 +16,8 @@ public class SoldProduct {
         this.price = price;
     }
 
-    public Product getProduct() {
-        return product;
-    }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+    public SoldProduct() {
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
     }
 }

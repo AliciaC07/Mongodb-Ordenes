@@ -1,7 +1,12 @@
 package Models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 public class InventoryMovement {
     private int id;
     private int warehouse;
@@ -19,52 +24,6 @@ public class InventoryMovement {
         this.date = date;
     }
 
-    public Date getDate() {
-        return date;
+    public InventoryMovement() {
     }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(int warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(String idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
 }

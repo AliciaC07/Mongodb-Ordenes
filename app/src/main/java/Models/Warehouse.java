@@ -1,5 +1,10 @@
 package Models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Warehouse {
     private int idWarehouse;
     private int quantity;
@@ -9,6 +14,9 @@ public class Warehouse {
         this.quantity = quantity;
     }
 
+    public Warehouse() {
+
+    }
     public int getIdWarehouse() {
         return idWarehouse;
     }
@@ -24,4 +32,5 @@ public class Warehouse {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

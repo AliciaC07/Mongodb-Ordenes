@@ -1,7 +1,11 @@
 package Models;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+@Getter
+@Setter
 public class Product {
     private String id;
     private String description;
@@ -16,18 +20,6 @@ public class Product {
     }
 
     public Product() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {
@@ -49,4 +41,5 @@ public class Product {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
 }
