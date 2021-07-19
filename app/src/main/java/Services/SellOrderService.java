@@ -52,13 +52,9 @@ public class SellOrderService {
                     .append("unit", "$lookup.unit");
             buildAggregate.add(new Document("$project", docProject));
             System.out.println(new Gson().toJson(buildAggregate));
-        for (Document listadoEtapa : buildAggregate) {
-            System.out.println("etapa==> " + listadoEtapa.toJson());
-        }
+
             AggregateIterable<Document> products = supplierCollection.aggregate(buildAggregate);
-        for (Document c: products ) {
-            System.out.println(c.toJson());
-        }
+
 
         //build sellOrder
             Document order = new Document();

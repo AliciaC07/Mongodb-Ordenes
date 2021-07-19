@@ -1,5 +1,6 @@
 import Models.*;
 import Services.SellOrderService;
+import Services.SupplierService;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.plugin.rendering.JavalinRenderer;
@@ -18,6 +19,7 @@ public class Main {
             config.enableCorsForAllOrigins();
             JavalinRenderer.register(JavalinVelocity.INSTANCE, ".vm");
         });
+
 
     }
 }

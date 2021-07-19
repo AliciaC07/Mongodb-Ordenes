@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-Services/InventoryMovementService.java
- Services.InventoryMovementService
-Models/Supplier.java
- Models.Supplier
-Models/InventoryMovement.java
- Models.InventoryMovement
-Main.java
- Main
-Models/SellOrder.java
- Models.SellOrder
-Services/SupplierService.java
- Services.SupplierService
-Services/SellOrderService.java
- Services.SellOrderService
-Services/ProductService.java
- Services.ProductService
-Models/Product.java
- Models.Product
-Models/Warehouse.java
- Models.Warehouse
-Models/SoldProduct.java
- Models.SoldProduct
-=======
 Services/ProductService.java
  Services.ProductService
 Models/Supplier.java
@@ -30,18 +6,17 @@ Services/InventoryMovementService.java
  Services.InventoryMovementService
 Models/Product.java
  Models.Product
-Models/SoldProduct.java
- Models.SoldProduct
-Services/SupplierService.java
- Services.SupplierService
-Models/InventoryMovement.java
- Models.InventoryMovement
-Models/Warehouse.java
- Models.Warehouse
 Models/SellOrder.java
  Models.SellOrder
+Models/InventoryMovement.java
+ Models.InventoryMovement
 Services/SellOrderService.java
  Services.SellOrderService
+Models/Warehouse.java
+ Models.Warehouse
+Models/SoldProduct.java
+ Models.SoldProduct
 Main.java
  Main
->>>>>>> main
+Services/SupplierService.java
+ Services.SupplierService
