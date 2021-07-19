@@ -1,6 +1,7 @@
 package Services;
 
 import Models.InventoryMovement;
+import com.google.gson.Gson;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
@@ -123,37 +124,36 @@ public class InventoryMovementService {
 
         //Group producto por id y date
         Document group1 = new Document();
-        group1.append("_id", new Document("productId","$productId")).append("date","$date");
-        Document sumSoldProduct = new Document();
-        sumSoldProduct.append("$sum","$quantity");
-        group1.append("totalProductSold",sumSoldProduct);
+        group1.append("_id", new Document("productId","$productId").append("date","$date"));
+        Document totalOut = new Document();
+        totalOut.append("$sum","$quantity");
+        group1.append("totalOut",totalOut);
         params.add(new Document("$group", group1));
 
         //project de los datos de la etapa anterior
         Document project = new Document();
         project.append("_id",0).append("productId","$_id.productId")
-                .append("date","$_id.date").append("totalProductSold","$totalProductSold");
+                .append("date","$_id.date").append("totalOut","$totalOut");
         params.add(new Document("$project",project));
 
         //agrupamos para poder sacar el promedio
         Document group2 = new Document("_id", new Document("productId","$productId"));
-        Document average = new Document();
-        average.append("$avg", "$totalProductSold");
-        group2.append("sellAverage",average);
+        Document dailySale = new Document();
+        dailySale.append("$avg", "$totalOut");
+        group2.append("dailySale",dailySale);
         params.add(new Document("$group", group2));
 
         //project para rendondear el average
         Document project2 = new Document();
-        project2.append("productId","$_id.productId")
-                .append("sellAverage",new Document("$floor","$sellAverage"));
+        project2.append("_id",0).append("productId","$_id.productId").append("dailySale","$dailySale");
         params.add(new Document("$project",project2));
-
         //se ejecuta el aggregate finally!!!
         AggregateIterable<Document> showMe = movementCollection.aggregate(params);
 
+
         //se obtiene el resultado
         for (Document document: showMe) {
-            quant = (int)Double.parseDouble(document.getDouble("average").toString());
+            quant = (int)Double.parseDouble(document.getDouble("dailySale").toString());
         }
         return quant;
     }

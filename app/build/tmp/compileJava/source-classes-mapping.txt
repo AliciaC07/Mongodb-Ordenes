@@ -1,22 +1,24 @@
-Services/ProductService.java
- Services.ProductService
+Models/InventoryMovement.java
+ Models.InventoryMovement
 Models/Supplier.java
  Models.Supplier
-Services/InventoryMovementService.java
- Services.InventoryMovementService
+Models/SoldProduct.java
+ Models.SoldProduct
 Models/Product.java
  Models.Product
 Models/SellOrder.java
  Models.SellOrder
-Models/InventoryMovement.java
- Models.InventoryMovement
+Services/SupplierService.java
+ Services.SupplierService
 Services/SellOrderService.java
  Services.SellOrderService
 Models/Warehouse.java
  Models.Warehouse
-Models/SoldProduct.java
- Models.SoldProduct
+Models/Dto/AvailableDays.java
+ Models.Dto.AvailableDays
+Services/InventoryMovementService.java
+ Services.InventoryMovementService
+Services/ProductService.java
+ Services.ProductService
 Main.java
  Main
-Services/SupplierService.java
- Services.SupplierService
