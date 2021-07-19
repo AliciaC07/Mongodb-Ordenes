@@ -15,6 +15,9 @@ public class Product {
         this.unit = "single";
     }
 
+    public Product() {
+    }
+
     public String getId() {
         return id;
     }
