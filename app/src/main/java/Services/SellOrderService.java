@@ -1,18 +1,20 @@
 package Services;
 
+import Models.Dto.AvailableDays;
+import Models.Dto.OrderDate;
+import Models.Product;
 import Models.SellOrder;
 import Models.SoldProduct;
 import Models.Supplier;
 import com.google.gson.Gson;
 import com.mongodb.client.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.Document;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.ZoneId;
+import java.util.*;
 
 public class SellOrderService {
     MongoClient mongoClient = MongoClients.create("mongodb://localhost");
@@ -31,9 +33,68 @@ public class SellOrderService {
 
         return sellOrderService;
     }
+    public List<OrderDate> buildOrders(LocalDate localDate, List<Product> products){
+        List<OrderDate> orderDates = new ArrayList<>();
+        Set<LocalDate> datesReserve = new HashSet<>();
+        List<SoldProduct> soldProducts = new ArrayList<>();
+        Map<String, Supplier> generatedS = new HashMap<>();
+        LocalDate dateGenerated;
+        Supplier supplier;
+        for (Product pro: products) {
+            AvailableDays ava = ProductService.getInstance().getAvailableDays(pro.getId(), Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            int totalUsage = 0;
+            int totalRequire = 0;
+            int amountRequired = 0;
+            int consume = InventoryMovementService.getInstance().dailySale(ava.getId());
+            ///calculo consumo
+            totalUsage += ava.getAvailableDays() * consume;
+            ///calculo requerido
+            totalRequire += totalUsage + consume;
+            amountRequired += totalRequire-ava.getTotalAvailable();
+            //ahora calcular cuando en cuantos dias se gasta por consumo
+            int daysCount = 0;
+            for (int i = 0; i <= ava.getAvailableDays(); i++){
+                if (ava.getTotalAvailable() > 0 && ava.getTotalAvailable() >= consume){
+                    ava.setTotalAvailable(ava.getTotalAvailable() - consume);
+                    daysCount++;
+                }
+            }
+            System.out.println(daysCount);
+            supplier = SupplierService.getInstance().getSupplierByDeliberydate(ava.getId(), daysCount);
+            if (supplier == null){
+                supplier = SupplierService.getInstance().getSupplierByLess(ava.getId());
+
+            }
+            dateGenerated = localDate.minusDays(supplier.getDeliveryDate()+1);
+            System.out.println(dateGenerated);
+            SoldProduct soldProduct = new SoldProduct();
+            soldProduct.setProduct(ProductService.getInstance().getProductById(ava.getId()));
+            soldProduct.setQuantity(amountRequired);
+            soldProduct.setPrice(supplier.getPrice());
+            soldProduct.setDateGenerated(dateGenerated);
+            soldProduct.setSupplier(supplier);
+            soldProducts.add(soldProduct);
+            generatedS.put(pro.getId(), supplier);
+            datesReserve.add(dateGenerated);
+        }
+
+        for (LocalDate l: datesReserve) {
+            OrderDate orderDate = new OrderDate();
+            orderDate.setDate(l);
+            for (SoldProduct s : soldProducts) {
+                if (s.getDateGenerated().equals(l)){
+                    orderDate.setSupplier(s.getSupplier());
+                    orderDate.getProducts().add(s);
+                }
+            }
+            orderDates.add(orderDate);
+        }
+        return orderDates;
+    }
 
 
-    public SellOrder generateReceipt(Supplier supplier, List<SoldProduct> soldProduct) {
+
+    public SellOrder generateReceipt(Supplier supplier, List<SoldProduct> soldProduct, Date orderDate) {
         SellOrder sellOrders = new SellOrder();
             List<Document> buildAggregate= new ArrayList<>();
             //match
@@ -65,10 +126,10 @@ public class SellOrderService {
                 order.put("id",1);
             }
             order.put("supplierId", supplier.getId());
-            order.put("date", LocalDate.now());
+            order.put("date", orderDate);
             List<Document> productsOrder = new ArrayList<>();
             float totalAmount = 0.0f;
-        ///System.out.println(new Gson().toJson(products));
+
         for (SoldProduct sp: soldProduct) {
             for (Document d: products) {
                 Document doc = new Document();
@@ -82,12 +143,11 @@ public class SellOrderService {
                 }
             }
         }
-        System.out.println(productsOrder.get(0));
         order.put("products", productsOrder);
         order.put("total", totalAmount);
         orderCollection.insertOne(order);
         sellOrders.setId(Integer.parseInt(order.get("id").toString()));
-        sellOrders.setDate(new Date());
+        sellOrders.setDate(orderDate);
         sellOrders.setSoldProducts(soldProduct);
         sellOrders.setSupplierId(supplier.getId());
         return sellOrders;

@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.mongodb.client.*;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class SupplierService {
 
 
     public Supplier getSupplierByDeliberydate(String productId, Integer deliveryTime){
-        Supplier supplier = new Supplier();
+        Supplier supplier = null;
         List<Document> buildAggregate = new ArrayList<>();
         ///Match
         Document doMatch = new Document("$match", new Document("productId",productId)
@@ -73,7 +72,35 @@ public class SupplierService {
         for (Document d : suppliers) {
             supplier = new Gson().fromJson(d.toJson(), Supplier.class);
         }
-        System.out.println(supplier.getId());
+        return supplier;
+
+    }
+    public  Supplier getSupplierByLess(String productId){
+        Supplier supplier = null;
+        List<Document> buildAggregate = new ArrayList<>();
+        ///Match
+        Document doMatch = new Document("$match", new Document("productId",productId)
+                );
+
+        buildAggregate.add(doMatch);
+        //Sort
+        Document docSort = new Document("$sort", new Document("deliveryTime", 1));
+        buildAggregate.add(docSort);
+        //Limit
+        Document docLimit = new Document("$limit", 1);
+        buildAggregate.add(docLimit);
+        //project
+        Document docPro = new Document("$project", new Document("id", "$id")
+                .append("productId", "$productId")
+                .append("deliveryDate", "$deliveryDate")
+                .append("price", "$price"));
+
+        buildAggregate.add(docPro);
+        System.out.println(new Gson().toJson(buildAggregate));
+        AggregateIterable<Document> suppliers = supplierCollection.aggregate(buildAggregate);
+        for (Document d : suppliers) {
+            supplier = new Gson().fromJson(d.toJson(), Supplier.class);
+        }
         return supplier;
 
     }

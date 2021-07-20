@@ -14,7 +14,7 @@ import java.util.List;
 
 public class InventoryMovementService {
     MongoClient mongoClient = MongoClients.create("mongodb://localhost");
-    MongoDatabase database = mongoClient.getDatabase("order");
+    MongoDatabase database = mongoClient.getDatabase("test");
     MongoCollection<Document> movementCollection = database.getCollection("inventoryMovement");
 
     private static InventoryMovementService inventoryMovementService;
