@@ -2,6 +2,7 @@ package Services;
 
 import Models.Dto.AvailableDays;
 import Models.Dto.OrderDate;
+import Models.Dto.ProductCart;
 import Models.Product;
 import Models.SellOrder;
 import Models.SoldProduct;
@@ -41,18 +42,19 @@ public class SellOrderService {
 
         return sellOrderService;
     }
-    public List<OrderDate> buildOrders(LocalDate localDate, List<Product> products){
+    public List<OrderDate> buildOrders(LocalDate localDate, List<ProductCart> products){
         List<OrderDate> orderDates = new ArrayList<>();
         Set<LocalDate> datesReserve = new HashSet<>();
         List<SoldProduct> soldProducts = new ArrayList<>();
         Map<String, Supplier> generatedS = new HashMap<>();
         LocalDate dateGenerated;
         Supplier supplier;
-        for (Product pro: products) {
-            AvailableDays ava = ProductService.getInstance().getAvailableDays(pro.getId(), Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        for (ProductCart pro: products) {
+            AvailableDays ava = ProductService.getInstance().getAvailableDays(pro.getProduct().getId(), Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             int totalUsage = 0;
             int totalRequire = 0;
-            int amountRequired = 0;
+            int amountRequired = pro.getQuantity();
+
             int consume = InventoryMovementService.getInstance().dailySale(ava.getId());
             ///calculo consumo
             totalUsage += ava.getAvailableDays() * consume;
@@ -82,7 +84,7 @@ public class SellOrderService {
             soldProduct.setDateGenerated(dateGenerated);
             soldProduct.setSupplier(supplier);
             soldProducts.add(soldProduct);
-            generatedS.put(pro.getId(), supplier);
+            generatedS.put(pro.getProduct().getId(), supplier);
             datesReserve.add(dateGenerated);
         }
 

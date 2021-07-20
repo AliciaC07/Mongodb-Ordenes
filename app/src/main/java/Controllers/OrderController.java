@@ -33,11 +33,8 @@ public class OrderController {
                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                    Date mydate = format.parse(date);
                    LocalDate localDate = LocalDate.parse(date);
-                   List<Product> products = new ArrayList<>();
-                   for (ProductCart product: ProductService.getCart() ) {
-                       products.add(product.getProduct());
-                   }
-                   List<OrderDate> orderDates = SellOrderService.getInstance().buildOrders(localDate,products);
+
+                   List<OrderDate> orderDates = SellOrderService.getInstance().buildOrders(localDate,ProductService.getCart());
                    List<SellOrder> sellOrders = new ArrayList<>();
                    for (OrderDate orderDate: orderDates) {
                        Date date1 = format.parse(orderDate.getDate().toString());
