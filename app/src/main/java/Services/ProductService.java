@@ -1,6 +1,7 @@
 package Services;
 
 import Models.Dto.AvailableDays;
+import Models.Dto.ProductCart;
 import Models.Product;
 import Models.SellOrder;
 import Models.Warehouse;
@@ -22,11 +23,18 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ProductService {
-    MongoClient mongoClient = MongoClients.create("mongodb://localhost");
-    MongoDatabase database = mongoClient.getDatabase("test");
-    MongoCollection<Document> productsCollection = database.getCollection("product");
 
+    MongoClient mongoClient = MongoClients.create("mongodb://localhost");
+    MongoDatabase database = mongoClient.getDatabase("order");
+    MongoCollection<Document> productsCollection = database.getCollection("product");
+    private static List<ProductCart> cart;
     private static ProductService productService;
+
+    public static List<ProductCart> getCart(){
+        if(cart == null)
+            cart = new ArrayList<>();
+        return cart;
+    }
 
     public static ProductService getInstance(){
         if(productService == null)
@@ -45,7 +53,7 @@ public class ProductService {
 
         for (Document myProduct: productString) {
             try{
-                /*List<Warehouse> warehouse = new ArrayList<>();
+                /*List<Warehouse> warehouse = new AarrayList<>();
                 product = new Product();
                 product.setId(myProduct.getString("id"));
                 product.setDescription(myProduct.getString("description"));
@@ -64,12 +72,13 @@ public class ProductService {
     }
 
     public List<Product> getAll(){
-        List<Product> products = null;
+        List<Product> products = new ArrayList<>();
         Document show = new Document();
-        show.append("_id",0).append("id",1).append("description",1).append("availability",1).append("unit",1);
+        show.append("_id",0)/*.append("id",1).append("description",1).append("availability",1).append("unit",1)*/;
         try (MongoCursor<Document> productsMongo = productsCollection.find().projection(show).iterator()) {
-            Document aux = new Document();
+
             while (productsMongo.hasNext()) {
+                Document aux = new Document();
                 aux = productsMongo.next();
                 String productJson = aux.toJson();
                 Product product = new Gson().fromJson(productJson,Product.class);

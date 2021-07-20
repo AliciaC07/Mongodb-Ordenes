@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Añadir a la Orden</title>
+    <title>Main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -17,10 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/product/home">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/product/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/product/cart">Orden</a>
+                        <a class="nav-link" href="/product/cart/view">Orden</a>
                     </li>
                 </ul>
             </div>
@@ -35,34 +35,26 @@
                 <th scope="col">#</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
-                <th scope="col">Almacen</th>
-                <th scope="col">Cantidad</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
             <!-- Foreach -->
             #foreach($product in $products)
-                #set($count = $foreach.count)
-                #foreach($warehouse in $product.availability)
-            <form method="post" action="/product/add/$!{product.id}/$!{warehouse.id}">
-                <tr>
-                    <th scope="row">$count</th>
-                    <td>$product.id</td>
-                    <td>$warehouse.quantity</td>
-                    <td>$warehouse.idWarehouse</td>
-                    <td><input type="number" class="form-control form-control-sm" name="quantity" max="$!{warehouse.quantity}" placeholder="Cantidad"></td>
-                    <td>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </td>
-                </tr>
-            </form>
-                #end
+            <tr>
+                <th scope="row">$foreach.count</th>
+                <td>$product.id</td>
+                <td>$product.totalAvailable</td>
+                <td>
+                    <a class="btn btn-primary" href="/product/$!{product.id}">Agregar</a>
+                </td>
+            </tr>
             #end
             <!-- end -->
             </tbody>
         </table>
     </div>
 </div>
+
 </body>
 </html>

@@ -14,12 +14,14 @@ public class SellOrder {
     private int supplierId;
     private Date date;
     private List<SoldProduct> soldProducts = new ArrayList<>();
+    private float totalAmount;
 
-    public SellOrder(int id, int supplierId, Date date, List<SoldProduct> soldProducts) {
+    public SellOrder(int id, int supplierId, Date date, List<SoldProduct> soldProducts,float totalAmount) {
         this.id = id;
         this.supplierId = supplierId;
         this.date = date;
         this.soldProducts = soldProducts;
+        this.totalAmount = totalAmount;
     }
 
     public SellOrder() {

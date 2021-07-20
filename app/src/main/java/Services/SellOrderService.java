@@ -17,13 +17,21 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class SellOrderService {
+
     MongoClient mongoClient = MongoClients.create("mongodb://localhost");
     MongoDatabase database = mongoClient.getDatabase("test");
     MongoCollection<Document> orderCollection = database.getCollection("sellOrder");
     MongoCollection<Document> supplierCollection = database.getCollection("supplier");
     private static SellOrderService sellOrderService;
+    private static List<SellOrder> sellOrders;
 
     public SellOrderService() {
+    }
+
+    public static List<SellOrder> getSellOrders(){
+        if(sellOrders == null)
+            sellOrders = new ArrayList<>();
+        return sellOrders;
     }
 
     public static SellOrderService getInstance() {
@@ -138,7 +146,7 @@ public class SellOrderService {
                     doc.put("quantity", sp.getQuantity());
                     doc.put("unit", sp.getProduct().getUnit());
                     doc.put("price", sp.getPrice());
-                    totalAmount += sp.getPrice();
+                    totalAmount += sp.getPrice()* sp.getQuantity();
                     productsOrder.add(doc);
                 }
             }
