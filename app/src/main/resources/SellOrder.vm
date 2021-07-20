@@ -17,10 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/product/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Orden</a>
+                        <a class="nav-link" href="/product/cart">Orden</a>
                     </li>
                 </ul>
             </div>
@@ -32,24 +32,25 @@
         <h2>Orden Generada</h2>
         <div class="row">
             <!-- For each sellOrder -->
+            #foreach($sellOrder in $sellOrders)
             <div class="col-md-1"></div>
             <div class="col-md">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                No.Orden: 45
+                                No.Orden: $sellOrder.id
                             </div>
                             <div class="col-md-6 text-center">
-                                Suplidor: 1
+                                Suplidor: $sellOrder.supplierId
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 text-center ">
-                                Fecha Orden: 2021-07-22
+                                Fecha Orden: $sellOrder.date
                             </div>
                             <div class="col-md-6 text-center">
-                                Monto Total: 60000
+                                Monto Total: $sellOrder.total
                             </div>
                         </div>
                     </div>
@@ -66,20 +67,26 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <!-- Foreach product -->
+                            #foreach($product in $sellOrder.products)
+                                #set($total = $product.quantity * $product.price)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>TEC-001</td>
-                                <td>Teclado</td>
-                                <td>200</td>
-                                <td>300</td>
-                                <td>60000</td>
+                                <th scope="row">$foreach.count</th>
+                                <td>$product.id</td>
+                                <td>$product.description</td>
+                                <td>$product.quantity</td>
+                                <td>$product.price</td>
+                                <td>$total</td>
                             </tr>
+                            #end
+                            <!-- end -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-md-1"></div>
+            #end
             <!-- EndForeach -->
         </div>
     </div>
