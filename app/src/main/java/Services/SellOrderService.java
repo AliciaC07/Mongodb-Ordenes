@@ -36,8 +36,8 @@ public class SellOrderService {
     public List<OrderDate> buildOrders(LocalDate localDate, List<Product> products){
         List<OrderDate> orderDates = new ArrayList<>();
         Set<LocalDate> datesReserve = new HashSet<>();
+        Set<Supplier> suppliers = new HashSet<>();
         List<SoldProduct> soldProducts = new ArrayList<>();
-        Map<String, Supplier> generatedS = new HashMap<>();
         LocalDate dateGenerated;
         Supplier supplier;
         for (Product pro: products) {
@@ -74,17 +74,21 @@ public class SellOrderService {
             soldProduct.setDateGenerated(dateGenerated);
             soldProduct.setSupplier(supplier);
             soldProducts.add(soldProduct);
-            generatedS.put(pro.getId(), supplier);
             datesReserve.add(dateGenerated);
+            suppliers.add(supplier);
         }
 
         for (LocalDate l: datesReserve) {
             OrderDate orderDate = new OrderDate();
             orderDate.setDate(l);
-            for (SoldProduct s : soldProducts) {
-                if (s.getDateGenerated().equals(l)){
-                    orderDate.setSupplier(s.getSupplier());
-                    orderDate.getProducts().add(s);
+            for (Supplier su: suppliers) {
+                for (SoldProduct s : soldProducts) {
+                    if (s.getDateGenerated().equals(l) && su.getId() == s.getSupplier().getId()) {
+                        orderDate.setSupplier(su);
+                        orderDate.getProducts().add(s);
+                    }
+
+
                 }
             }
             orderDates.add(orderDate);
@@ -94,7 +98,7 @@ public class SellOrderService {
 
 
 
-    public SellOrder generateReceipt(Supplier supplier, List<SoldProduct> soldProduct, Date orderDate) {
+    public SellOrder generateReceipt(Supplier supplier, Set<SoldProduct> soldProduct, Date orderDate) {
         SellOrder sellOrders = new SellOrder();
             List<Document> buildAggregate= new ArrayList<>();
             //match
@@ -138,7 +142,7 @@ public class SellOrderService {
                     doc.put("quantity", sp.getQuantity());
                     doc.put("unit", sp.getProduct().getUnit());
                     doc.put("price", sp.getPrice());
-                    totalAmount += sp.getPrice();
+                    totalAmount += sp.getPrice()*sp.getQuantity();
                     productsOrder.add(doc);
                 }
             }

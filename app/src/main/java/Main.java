@@ -1,20 +1,11 @@
-import Models.*;
-import Models.Dto.AvailableDays;
 import Models.Dto.OrderDate;
-import Services.InventoryMovementService;
+import Models.Product;
 import Services.ProductService;
 import Services.SellOrderService;
-import Services.SupplierService;
-import com.google.gson.Gson;
 import io.javalin.Javalin;
-import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinVelocity;
-import org.eclipse.jetty.server.*;
 
-import java.security.ProtectionDomain;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,10 +24,12 @@ public class Main {
        Product product = ProductService.getInstance().getProductById("MON-001");
        Product p = ProductService.getInstance().getProductById("MON-002");
        Product p1 = ProductService.getInstance().getProductById("MOUS-001");
+       Product product1 = ProductService.getInstance().getProductById("MON-003");
        List<Product> products = new ArrayList<>();
        products.add(product);
        products.add(p);
         products.add(p1);
+        products.add(product1);
        List<OrderDate> orderDates = new ArrayList<>();
        LocalDate date = LocalDate.now().plusDays(6);
        orderDates = SellOrderService.getInstance().buildOrders(date, products);
