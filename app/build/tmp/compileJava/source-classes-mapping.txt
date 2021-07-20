@@ -1,7 +1,9 @@
-Services/InventoryMovementService.java
- Services.InventoryMovementService
+Models/Dto/AvailableDays.java
+ Models.Dto.AvailableDays
 Models/SellOrder.java
  Models.SellOrder
+Models/Dto/SoldProductDto.java
+ Models.Dto.SoldProductDto
 Models/Warehouse.java
  Models.Warehouse
 Models/SoldProduct.java
@@ -10,22 +12,22 @@ Models/InventoryMovement.java
  Models.InventoryMovement
 Models/Supplier.java
  Models.Supplier
-Services/SupplierService.java
- Services.SupplierService
+Services/InventoryMovementService.java
+ Services.InventoryMovementService
 Models/Product.java
  Models.Product
-Models/Dto/AvailableDays.java
- Models.Dto.AvailableDays
-Models/Dto/OrderDate.java
- Models.Dto.OrderDate
-Services/SellOrderService.java
- Services.SellOrderService
 Models/Dto/ProductCart.java
  Models.Dto.ProductCart
+Models/Dto/OrderDate.java
+ Models.Dto.OrderDate
 Services/ProductService.java
  Services.ProductService
 Controllers/ProductController.java
  Controllers.ProductController
+Services/SellOrderService.java
+ Services.SellOrderService
+Services/SupplierService.java
+ Services.SupplierService
 Main.java
  Main
 Controllers/OrderController.java

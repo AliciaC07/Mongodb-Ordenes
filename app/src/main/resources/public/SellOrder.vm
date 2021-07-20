@@ -30,9 +30,10 @@
 <div class="container">
     <div class="mx-auto mt-4 mb-4">
         <h2>Orden Generada</h2>
-        <div class="row">
+
             <!-- For each sellOrder -->
-            #foreach($sellOrder in $sellOrders)
+        #foreach($sellOrder in $sellOrders)
+        <div class="row mb-2">
             <div class="col-md-1"></div>
             <div class="col-md">
                 <div class="card">
@@ -86,9 +87,10 @@
                 </div>
             </div>
             <div class="col-md-1"></div>
-            #end
-            <!-- EndForeach -->
         </div>
+        #end
+            <!-- EndForeach -->
+        <a class="btn btn-danger float-end" href="/product/">Volver</a>
     </div>
 </div>
 

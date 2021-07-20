@@ -30,9 +30,10 @@
 <div class="container">
     <div class="mx-auto mt-4 mb-4">
         <h2>Orden Generada</h2>
-        <div class="row">
+
             <!-- For each sellOrder -->
-            #foreach($sellOrder in $sellOrders)
+        #foreach($sellOrder in $sellOrders)
+        <div class="row mb-2">
             <div class="col-md-1"></div>
             <div class="col-md">
                 <div class="card">
@@ -50,7 +51,7 @@
                                 Fecha Orden: $sellOrder.date
                             </div>
                             <div class="col-md-6 text-center">
-                                Monto Total: $sellOrder.total
+                                Monto Total: $sellOrder.totalAmount
                             </div>
                         </div>
                     </div>
@@ -68,12 +69,12 @@
                             </thead>
                             <tbody>
                             <!-- Foreach product -->
-                            #foreach($product in $sellOrder.products)
+                            #foreach($product in $sellOrder.soldProducts)
                                 #set($total = $product.quantity * $product.price)
                             <tr>
                                 <th scope="row">$foreach.count</th>
-                                <td>$product.id</td>
-                                <td>$product.description</td>
+                                <td>$product.product.id</td>
+                                <td>$product.product.description</td>
                                 <td>$product.quantity</td>
                                 <td>$product.price</td>
                                 <td>$total</td>
@@ -86,9 +87,10 @@
                 </div>
             </div>
             <div class="col-md-1"></div>
-            #end
-            <!-- EndForeach -->
         </div>
+        #end
+            <!-- EndForeach -->
+        <a class="btn btn-danger float-end" href="/product/">Volver</a>
     </div>
 </div>
 

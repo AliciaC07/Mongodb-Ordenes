@@ -22,6 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/product/cart/view">Orden</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order/genOrder/view">Ordenes Generadas</a>
+                    </li>
                 </ul>
             </div>
         </div>

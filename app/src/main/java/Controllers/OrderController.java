@@ -45,7 +45,7 @@ public class OrderController {
                get("/genOrder/view", ctx -> {
                    Map<String, Object> model = new HashMap<>();
                    model.put("sellOrders",SellOrderService.getInstance().getSellOrders());
-
+                   ProductService.getCart().clear();
                    ctx.render("/public/SellOrder.vm", model);
                });
            });

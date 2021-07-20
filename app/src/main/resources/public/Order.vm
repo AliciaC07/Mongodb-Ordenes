@@ -22,6 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/product/cart/view">Orden</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order/genOrder/view">Ordenes Generadas</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -60,8 +63,13 @@
                 <!-- end -->
                 </tbody>
             </table>
-            <button type="submit" class="btn btn-primary">Generar Orden</button>
+
+            <div class="float-end">
+                <button type="submit" class="btn btn-primary ">Generar Orden</button>
+                <a class="btn btn-danger" href="/product/">Volver</a>
+            </div>
         </form>
+
     </div>
 </div>
 </body>
