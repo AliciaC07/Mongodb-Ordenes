@@ -8,12 +8,14 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 public class OrderDate {
-    private List<SoldProduct> products = new ArrayList<>();
+    private Set<SoldProduct> products = new HashSet<>();
     private LocalDate date;
     private Supplier supplier;
 
