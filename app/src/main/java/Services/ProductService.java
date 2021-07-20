@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ProductService {
 
     MongoClient mongoClient = MongoClients.create("mongodb://localhost");
-    MongoDatabase database = mongoClient.getDatabase("order");
+    MongoDatabase database = mongoClient.getDatabase("test");
     MongoCollection<Document> productsCollection = database.getCollection("product");
     private static List<ProductCart> cart;
     private static ProductService productService;

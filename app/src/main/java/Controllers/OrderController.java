@@ -38,13 +38,13 @@ public class OrderController {
                    List<SellOrder> sellOrders = new ArrayList<>();
                    for (OrderDate orderDate: orderDates) {
                        Date date1 = format.parse(orderDate.getDate().toString());
-                       SellOrderService.getSellOrders().add(SellOrderService.getInstance().generateReceipt(orderDate.getSupplier(), orderDate.getProducts(),date1));
+                       SellOrderService.getInstance().generateReceipt(orderDate.getSupplier(), orderDate.getProducts(),date1);
                    }
                    ctx.redirect("/order/genOrder/view");
                });
                get("/genOrder/view", ctx -> {
                    Map<String, Object> model = new HashMap<>();
-                   model.put("sellOrders",SellOrderService.getSellOrders());
+                   model.put("sellOrders",SellOrderService.getInstance().getSellOrders());
 
                    ctx.render("/public/SellOrder.vm", model);
                });

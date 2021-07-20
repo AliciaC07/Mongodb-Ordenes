@@ -72,8 +72,8 @@
                                 #set($total = $product.quantity * $product.price)
                             <tr>
                                 <th scope="row">$foreach.count</th>
-                                <td>$product.id</td>
-                                <td>$product.description</td>
+                                <td>$product.product.id</td>
+                                <td>$product.product.description</td>
                                 <td>$product.quantity</td>
                                 <td>$product.price</td>
                                 <td>$total</td>
