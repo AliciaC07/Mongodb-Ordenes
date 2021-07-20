@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Añadir a la Orden</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -35,22 +35,27 @@
                 <th scope="col">#</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
+                <th scope="col">Almacen</th>
+                <th scope="col">Cantidad</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>TEC-001</td>
-                <td>52</td>
-                <td>
-                    <a class="btn btn-primary">Agregar</a>
-                </td>
-            </tr>
+            <form method="post" action="">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>TEC-001</td>
+                    <td>10</td>
+                    <td>1</td>
+                    <td><input type="number" class="form-control form-control-sm" name="quantity" max="10" placeholder="Cantidad"></td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </td>
+                </tr>
+            </form>
             </tbody>
         </table>
     </div>
 </div>
-
 </body>
 </html>
