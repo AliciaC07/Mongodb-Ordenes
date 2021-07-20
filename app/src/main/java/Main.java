@@ -29,7 +29,7 @@ public class Main {
        products.add(product);
        products.add(p);
         products.add(p1);
-        products.add(product1);
+       products.add(product1);
        List<OrderDate> orderDates = new ArrayList<>();
        LocalDate date = LocalDate.now().plusDays(6);
        orderDates = SellOrderService.getInstance().buildOrders(date, products);

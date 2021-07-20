@@ -1,11 +1,11 @@
 Services/ProductService.java
  Services.ProductService
-Models/SellOrder.java
- Models.SellOrder
+Services/SupplierService.java
+ Services.SupplierService
 Models/Dto/AvailableDays.java
  Models.Dto.AvailableDays
-Models/Dto/OrderDate.java
- Models.Dto.OrderDate
+Models/SoldProduct.java
+ Models.SoldProduct
 Models/InventoryMovement.java
  Models.InventoryMovement
 Models/Supplier.java
@@ -16,10 +16,10 @@ Models/Product.java
  Models.Product
 Models/Warehouse.java
  Models.Warehouse
-Services/SupplierService.java
- Services.SupplierService
-Models/SoldProduct.java
- Models.SoldProduct
+Models/Dto/OrderDate.java
+ Models.Dto.OrderDate
+Models/SellOrder.java
+ Models.SellOrder
 Main.java
  Main
 Services/SellOrderService.java

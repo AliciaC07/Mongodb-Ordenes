@@ -51,21 +51,22 @@ public class SellOrderService {
             ///calculo requerido
             totalRequire += totalUsage + consume;
             amountRequired += totalRequire-ava.getTotalAvailable();
-            //ahora calcular cuando en cuantos dias se gasta por consumo
-            int daysCount = 0;
-            for (int i = 0; i <= ava.getAvailableDays(); i++){
-                if (ava.getTotalAvailable() > 0 && ava.getTotalAvailable() >= consume){
-                    ava.setTotalAvailable(ava.getTotalAvailable() - consume);
-                    daysCount++;
-                }
+            if (ava.getTotalAvailable() >= amountRequired){
+                continue;
             }
-            System.out.println(daysCount);
-            supplier = SupplierService.getInstance().getSupplierByDeliberydate(ava.getId(), daysCount);
+            //ahora calcular cuando en cuantos dias se gasta por consumo
+            int days = Double.valueOf(Math.floor(ava.getTotalAvailable()/consume)).intValue();
+            System.out.println(days);
+            supplier = SupplierService.getInstance().getSupplierByDeliberydate(ava.getId(), days);
             if (supplier == null){
                 supplier = SupplierService.getInstance().getSupplierByLess(ava.getId());
 
             }
-            dateGenerated = localDate.minusDays(supplier.getDeliveryDate()+1);
+            if (days == 1){
+                dateGenerated = LocalDate.now();
+            }else {
+                dateGenerated = localDate.minusDays(supplier.getDeliveryDate()+1);
+            }
             System.out.println(dateGenerated);
             SoldProduct soldProduct = new SoldProduct();
             soldProduct.setProduct(ProductService.getInstance().getProductById(ava.getId()));
